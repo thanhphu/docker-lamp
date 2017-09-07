@@ -55,6 +55,7 @@ ENV LOG_LEVEL warn
 ENV ALLOW_OVERRIDE All
 ENV DATE_TIMEZONE UTC
 ENV TERM dumb
+ENV MYSQL_ROOT_PASSWORD=
 
 COPY index.php /var/www/html/
 COPY run-lamp.sh /usr/sbin/
@@ -63,6 +64,10 @@ RUN a2enmod rewrite
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 RUN chmod +x /usr/sbin/run-lamp.sh
 RUN chown -R www-data:www-data /var/www/html
+
+RUN /etc/init.d/mysql start
+RUN mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';
+"
 
 VOLUME /var/www/html
 VOLUME /var/log/httpd

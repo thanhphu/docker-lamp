@@ -34,8 +34,8 @@ cat << EOB
     
     **********************************************
     *                                            *
-    *    Docker image: fauria/lamp               *
-    *    https://github.com/fauria/docker-lamp   *
+    *    Docker image: thanhphu/lamp             *
+    *    https://github.com/thanhphu/docker-lamp *
     *                                            *
     **********************************************
 
