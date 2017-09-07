@@ -1,8 +1,8 @@
 FROM ubuntu:16.04
-MAINTAINER Fer Uria <fauria@gmail.com>
+MAINTAINER Thanh Phu <thanhphu@github.com>
 LABEL Description="Cutting-edge LAMP stack, based on Ubuntu 16.04 LTS. Includes .htaccess support and popular PHP7 features, including composer and mail() function." \
 	License="Apache License 2.0" \
-	Usage="docker run -d -p [HOST WWW PORT NUMBER]:80 -p [HOST DB PORT NUMBER]:3306 -v [HOST WWW DOCUMENT ROOT]:/var/www/html -v [HOST DB DOCUMENT ROOT]:/var/lib/mysql fauria/lamp" \
+	Usage="docker run -d -p [HOST WWW PORT NUMBER]:80 -p [HOST DB PORT NUMBER]:3306 -v [HOST WWW DOCUMENT ROOT]:/var/www/html -v [HOST DB DOCUMENT ROOT]:/var/lib/mysql thanhphu/lamp" \
 	Version="1.0"
 
 RUN apt-get update
@@ -47,7 +47,7 @@ RUN apt-get install apache2 libapache2-mod-php7.0 -y
 RUN apt-get install mariadb-common mariadb-server mariadb-client -y
 RUN apt-get install postfix -y
 RUN apt-get install git nodejs npm composer nano tree vim curl ftp -y
-RUN npm install -g bower grunt-cli gulp
+RUN npm install -g bower grunt-cli gulp pnpm
 
 ENV LOG_STDOUT **Boolean**
 ENV LOG_STDERR **Boolean**
@@ -66,8 +66,6 @@ RUN chmod +x /usr/sbin/run-lamp.sh
 RUN chown -R www-data:www-data /var/www/html
 
 RUN /etc/init.d/mysql start
-RUN mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';
-"
 
 VOLUME /var/www/html
 VOLUME /var/log/httpd
